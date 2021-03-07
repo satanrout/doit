@@ -1,24 +1,45 @@
 import React, { useState } from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet, TouchableHighlight } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
 export default function AddTodo(item) {
-  const [newTodo, setNewTodo] = useState("");
+  const [description, setDescription] = useState("");
+
+  const addTodo = async () => {
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(description),
+    };
+
+    try {
+      const fetchResponse = await fetch(
+        "https://pernntodoapi.herokuapp.com/todos",
+        settings
+      );
+
+      const data = await fetchResponse.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <View style={styles.addtodo}>
       <TextInput
-        onChange={(e) => setNewTodo(e.target.value)}
+        onChange={(e) => setDescription(e.target.value)}
         placeholder="add todo"
-        value={newTodo}
+        value={description}
         style={styles.add}
         label="TextInputWithIcon"
       />
-      <Entypo
-        style={styles.addicon}
-        name="add-to-list"
-        size={30}
-        color="green"
-      />
+      <TouchableHighlight style={styles.addicon} onPress={addTodo}>
+        <Entypo name="add-to-list" size={30} color="green" />
+      </TouchableHighlight>
     </View>
   );
 }

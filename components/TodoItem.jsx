@@ -16,7 +16,7 @@ export default function TodoItem({ item }) {
           onPress={() => setChecked(!checked)}
           style={checked ? styles.colorLeft : styles.colorleft}
         ></TouchableOpacity>
-        <Text style={styles.itemText}>{item.text}</Text>
+        <Text style={styles.itemText}>{item.description}</Text>
       </View>
     </TouchableOpacity>
   );
