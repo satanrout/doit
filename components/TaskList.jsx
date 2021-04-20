@@ -6,11 +6,12 @@ export default function TaskList() {
   const [todos, setTodo] = useState("");
 
   useEffect(() => {
-    fetch("https://pernntodoapi.herokuapp.com/todos")
+    fetch("http://10.0.2.2:5000/todos")
       .then((res) => res.json())
-      .then((data) => setTodo(data))
-      .catch((err) => err.message);
+      .then(({ data }) => setTodo(data))
+      .catch((err) => console.log(err));
   }, []);
+  console.log(todos);
 
   return (
     <FlatList

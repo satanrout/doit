@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet, TouchableHighlight } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
 export default function AddTodo(item) {
-  const [description, setDescription] = useState("");
+  const [todo, setTodo] = useState("test");
 
   const addTodo = async () => {
     const settings = {
@@ -12,14 +12,11 @@ export default function AddTodo(item) {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(description),
+      body: JSON.stringify({ todo }),
     };
 
     try {
-      const fetchResponse = await fetch(
-        "https://pernntodoapi.herokuapp.com/todos",
-        settings
-      );
+      const fetchResponse = await fetch("http://10.0.2.2:5000/todos", settings);
 
       const data = await fetchResponse.json();
       console.log(data);
@@ -31,9 +28,9 @@ export default function AddTodo(item) {
   return (
     <View style={styles.addtodo}>
       <TextInput
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e) => setTodo(e.target.value)}
         placeholder="add todo"
-        value={description}
+        value={todo}
         style={styles.add}
         label="TextInputWithIcon"
       />

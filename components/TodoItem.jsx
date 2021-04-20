@@ -3,12 +3,13 @@ import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
 
 export default function TodoItem({ item }) {
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos")
+    fetch("http://10.0.2.2:5000/todos")
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }, []);
   const [checked, setChecked] = useState(false);
+  console.log(item);
   return (
     <TouchableOpacity>
       <View style={styles.item}>
@@ -16,7 +17,7 @@ export default function TodoItem({ item }) {
           onPress={() => setChecked(!checked)}
           style={checked ? styles.colorLeft : styles.colorleft}
         ></TouchableOpacity>
-        <Text style={styles.itemText}>{item.description}</Text>
+        <Text style={styles.itemText}>{item.todo}</Text>
       </View>
     </TouchableOpacity>
   );
